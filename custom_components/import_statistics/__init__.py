@@ -5,13 +5,15 @@ from typing import Any
 from homeassistant.components.recorder.statistics import (
     async_add_external_statistics,
     async_import_statistics,
+    clear_statistics,
+    get_instance,
 )
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
 from custom_components.import_statistics import helpers, prepare_data
-from custom_components.import_statistics.const import ATTR_FILENAME, DOMAIN
+from custom_components.import_statistics.const import ATTR_FILENAME, ATTR_DELETE_BEFORE_IMPORT, DOMAIN
 from custom_components.import_statistics.helpers import _LOGGER
 
 # Use empty_config_schema because the component does not have any config options
@@ -52,6 +54,9 @@ def setup(hass: HomeAssistant, config: ConfigType) -> bool:  # pylint: disable=u
             _LOGGER.debug(metadata)
             _LOGGER.debug("Statistics:")
             _LOGGER.debug(statistics)
+
+            if call.data.get(ATTR_DELETE_BEFORE_IMPORT):
+                clear_statistics(get_instance(hass), [metadata["statistic_id"]])
 
             if metadata["source"] == "recorder":
                 if check_entity_exists(hass, metadata["statistic_id"]):

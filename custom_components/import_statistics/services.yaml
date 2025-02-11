@@ -50,3 +50,9 @@ import_from_file:
       default: true
       selector:
         boolean:
+    delete_before_import:
+      required: false
+      example: false
+      default: false
+      selector:
+        boolean:

@@ -8,6 +8,7 @@ ATTR_DELIMITER = "delimiter"
 ATTR_DECIMAL = "decimal"
 ATTR_DATETIME_FORMAT = "datetime_format"
 ATTR_UNIT_FROM_ENTITY = "unit_from_entity"
+ATTR_DELETE_BEFORE_IMPORT = "delete_before_import"
 
 TESTFILEPATHS = "tests/testfiles/"
 
